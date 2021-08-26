@@ -8,17 +8,17 @@ namespace ADN.Application.Bike.Command
 {
     public class CreateBikeCommandHandler : AsyncRequestHandler<CreateBikeCommand>
     {
-        readonly BikeService _personService;
+        readonly BikeService _bikeService;
 
-        public CreateBikeCommandHandler(BikeService personService)
+        public CreateBikeCommandHandler(BikeService bikeService)
         {
-            _personService = personService;
+            _bikeService = bikeService;
 
         }
 
         protected override async Task Handle(CreateBikeCommand request, CancellationToken cancellationToken)
         {
-            await _personService.RegisterBike(new Domain.Entities.Bike
+            await _bikeService.RegisterBike(new Domain.Entities.Bike
             {
                 Plate = request.Plate,
                 DateOfIn = request.DateOfIn,
