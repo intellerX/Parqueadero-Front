@@ -2,14 +2,14 @@ using System;
 
 namespace ADN.Domain.Entities
 {
-    public class Vehicle : EntityBase<Guid>
+    public abstract class Vehicle : EntityBase<Guid>
     {
-        public string Plate { get; set; } = default!;
-        public DateTime DateOfIn { get; set; } = default!;
-        public string Cc { get; set; } = default!;
-        public string State { get; set; } = default!;
+        protected string Plate { get; set; } = default!;
+        protected DateTime DateOfIn { get; set; } = default!;
+        protected string Cc { get; set; } = default!;
+        protected string State { get; set; } = default!;
 
-        public Vehicle(string plate, string dateOfIn, string cc, string state)
+        public Vehicle(string plate, DateTime dateOfIn, string cc, string state)
         {
             Plate = plate;
             DateOfIn = dateOfIn;

@@ -1,8 +1,8 @@
 namespace ADN.Domain.Entities
 {
-    public class EntityBase<T>: DomainEntity, IEntityBase<T>
+    public class EntityBase<DateType>: DomainEntity, IEntityBase<DateType>
     {
-        public virtual T Id { get; set; } = default!;
+        public virtual DateType Id { get; set; } = default!;
     }
 
     public class DomainEntity {

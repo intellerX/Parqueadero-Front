@@ -1,7 +1,7 @@
 namespace ADN.Domain.Entities
 {
-    public interface IEntityBase<T>
+    public interface IEntityBase<DateType>
     {
-        T Id { get; set; }
+        DateType Id { get; set; }
     }
 }
