@@ -1,3 +1,9 @@
 // General var
-$font-general: "nombre de la fuente"
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+*{
+    font-family: "Roboto", sans-serif;
+
+}
+$font-general: "Roboto", sans-serif;
 // End general var

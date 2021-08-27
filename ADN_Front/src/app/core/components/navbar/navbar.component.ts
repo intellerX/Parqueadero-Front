@@ -13,7 +13,7 @@ import { MenuItem } from '@core/modelo/menu-item';
   }
 
   nav a {
-    color: #8f8f8f;
+    color: white;
     font-size: 14px;
     font-weight: 500;
     line-height: 48px;
