@@ -1,22 +1,23 @@
-<h1>Registrar Producto</h1>
-<h3>Ejemplo validacion de formularios reactivos con directiva</h3>
 <form [formGroup]="productoForm" (ngSubmit)="cerar()">
-  <div class="row">
-    <div class="col-sm-2">
-      <label>Id:</label>
+    <div class="login-page">
+        <div class="form">
+            <div class="login-form">
+                <h3>Ingresar Vehiculo</h3>
+                <input validar type="text" id="idProducto" name="idProducto" placeholder="Placa" class="form-control" formControlName="id">
+                <input validar type="text" id="descripcionProducto" name="descripcion" placeholder="Cilindraje" class="form-control" formControlName="descripcion">
+                <select class="form-select" aria-label="Default select example">
+                  <option selected>Tipo de vehiculo</option>
+                  <option value="1">Carro</option>
+                  <option value="2">Moto</option>
+                </select>
+
+                <input matInput type="datetime-local">
+
+                <button>login</button>
+                <button [swal]="['Oops!', 'This is not implemented yet :/', 'warning']">
+                  Do it!
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-4">
-      <input validar type="text" id="idProducto" name="idProducto" placeholder="Id producto" class="form-control"
-        formControlName="id">
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-sm-2">
-      <label>Descripción:</label>
-    </div>
-    <div class="col-sm-4">
-      <input validar type="text" id="descripcionProducto" name="descripcion" placeholder="Descripción producto"
-        class="form-control" formControlName="descripcion">
-    </div>
-  </div>
 </form>

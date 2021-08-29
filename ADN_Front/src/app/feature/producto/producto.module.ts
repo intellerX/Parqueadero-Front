@@ -7,18 +7,28 @@ import { CrearProductoComponent } from './components/crear-producto/crear-produc
 import { ProductoComponent } from './components/producto/producto.component';
 import { SharedModule } from '@shared/shared.module';
 import { ProductoService } from './shared/service/producto.service';
-
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
 @NgModule({
   declarations: [
     CrearProductoComponent,
     ListarProductoComponent,
     BorrarProductoComponent,
-    ProductoComponent
+    ProductoComponent,
   ],
   imports: [
     ProductoRoutingModule,
-    SharedModule
+    SharedModule,
+    SweetAlert2Module,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
   providers: [ProductoService]
 })
