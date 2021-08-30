@@ -1,29 +1,28 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import {
-  RouterTestingModule
-} from '@angular/router/testing';
-import { BorrarProductoComponent } from './borrar-producto.component';
+
+import { VehiculoComponent } from './vehiculo.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { RouterTestingModule } from '@angular/router/testing';
 
-describe('BorrarProductoComponent', () => {
-  let component: BorrarProductoComponent;
-  let fixture: ComponentFixture<BorrarProductoComponent>;
+describe('VehiculoComponent', () => {
+  let component: VehiculoComponent;
+  let fixture: ComponentFixture<VehiculoComponent>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ BorrarProductoComponent ],
+      declarations: [VehiculoComponent],
       imports: [
         CommonModule,
         HttpClientModule,
         RouterTestingModule
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BorrarProductoComponent);
+    fixture = TestBed.createComponent(VehiculoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,10 @@
-<form [formGroup]="productoForm" (ngSubmit)="cerar()">
+<form [formGroup]="vehiculoForm" (ngSubmit)="cerar()">
     <div class="login-page">
         <div class="form">
             <div class="login-form">
-                <h3>Sacar Vehiculo</h3>
-                <input validar type="text" id="idProducto" name="idProducto" placeholder="Placa" class="form-control" formControlName="id">
+                <h3>Ingresar Vehiculo</h3>
+                <input validar type="text" id="idVehiculo" name="idVehiculo" placeholder="Placa" class="form-control" formControlName="id">
+                <input validar type="text" id="descripcionVehiculo" name="descripcion" placeholder="Cilindraje" class="form-control" formControlName="descripcion">
                 <select class="form-select" aria-label="Default select example">
                   <option selected>Tipo de vehiculo</option>
                   <option value="1">Carro</option>
@@ -12,7 +13,7 @@
 
                 <input matInput type="datetime-local">
 
-                <button>Sacar</button>
+                <button>login</button>
                 <button [swal]="['Oops!', 'This is not implemented yet :/', 'warning']">
                   Do it!
                 </button>

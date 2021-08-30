@@ -1,29 +1,29 @@
 import { by, element } from 'protractor';
 
-export class ProductoPage {
-    private linkCrearProducto = element(by.id('linkCrearProducto'));
-    private linkListarProductos = element(by.id('linkListarProducto'));
-    private inputIdProducto = element(by.id('idProducto'));
-    private inputDescripcionProducto = element(by.id('descripcionProducto'));
-    private listaProductos = element.all(by.css('ul.productos li'));
+export class VehiculoPage {
+    private linkCrearVehiculo = element(by.id('linkCrearVehiculo'));
+    private linkListarVehiculos = element(by.id('linkListarVehiculo'));
+    private inputIdVehiculo = element(by.id('idVehiculo'));
+    private inputDescripcionVehiculo = element(by.id('descripcionVehiculo'));
+    private listaVehiculos = element.all(by.css('ul.vehiculos li'));
 
-    async clickBotonCrearProductos() {
-        await this.linkCrearProducto.click();
+    async clickBotonCrearVehiculos() {
+        await this.linkCrearVehiculo.click();
     }
 
-    async clickBotonListarProductos() {
-        await this.linkListarProductos.click();
+    async clickBotonListarVehiculos() {
+        await this.linkListarVehiculos.click();
     }
 
-    async ingresarId(idProducto) {
-        await this.inputIdProducto.sendKeys(idProducto);
+    async ingresarId(idVehiculo) {
+        await this.inputIdVehiculo.sendKeys(idVehiculo);
     }
 
-    async ingresarDescripcion(descripcionProducto) {
-        await this.inputDescripcionProducto.sendKeys(descripcionProducto);
+    async ingresarDescripcion(descripcionVehiculo) {
+        await this.inputDescripcionVehiculo.sendKeys(descripcionVehiculo);
     }
 
-    async contarProductos() {
-        return this.listaProductos.count();
+    async contarVehiculos() {
+        return this.listaVehiculos.count();
     }
 }

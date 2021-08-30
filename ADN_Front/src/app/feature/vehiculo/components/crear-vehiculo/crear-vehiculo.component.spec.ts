@@ -1,22 +1,22 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { of } from 'rxjs';
 
-import { CrearProductoComponent } from './crear-producto.component';
+import { CrearVehiculoComponent } from './crear-vehiculo.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProductoService } from '../../shared/service/producto.service';
+import { VehiculoService } from '../../shared/service/vehiculo.service';
 import { HttpService } from 'src/app/core/services/http.service';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
-describe('CrearProductoComponent', () => {
-  let component: CrearProductoComponent;
-  let fixture: ComponentFixture<CrearProductoComponent>;
-  let productoService: ProductoService;
+describe('CrearVehiculoComponent', () => {
+  let component: CrearVehiculoComponent;
+  let fixture: ComponentFixture<CrearVehiculoComponent>;
+  let vehiculoService: VehiculoService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CrearProductoComponent ],
+      declarations: [CrearVehiculoComponent],
       imports: [
         CommonModule,
         HttpClientModule,
@@ -24,16 +24,16 @@ describe('CrearProductoComponent', () => {
         ReactiveFormsModule,
         FormsModule
       ],
-      providers: [ProductoService, HttpService],
+      providers: [VehiculoService, HttpService],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CrearProductoComponent);
+    fixture = TestBed.createComponent(CrearVehiculoComponent);
     component = fixture.componentInstance;
-    productoService = TestBed.inject(ProductoService);
-    spyOn(productoService, 'guardar').and.returnValue(
+    vehiculoService = TestBed.inject(VehiculoService);
+    spyOn(vehiculoService, 'guardar').and.returnValue(
       of(true)
     );
     fixture.detectChanges();
@@ -44,14 +44,14 @@ describe('CrearProductoComponent', () => {
   });
 
   it('formulario es invalido cuando esta vacio', () => {
-    expect(component.productoForm.valid).toBeFalsy();
+    expect(component.vehiculoForm.valid).toBeFalsy();
   });
 
-  it('Registrando producto', () => {
-    expect(component.productoForm.valid).toBeFalsy();
-    component.productoForm.controls.id.setValue('001');
-    component.productoForm.controls.descripcion.setValue('Producto test');
-    expect(component.productoForm.valid).toBeTruthy();
+  it('Registrando vehiculo', () => {
+    expect(component.vehiculoForm.valid).toBeFalsy();
+    component.vehiculoForm.controls.id.setValue('001');
+    component.vehiculoForm.controls.descripcion.setValue('Vehiculo test');
+    expect(component.vehiculoForm.valid).toBeTruthy();
 
     component.cerar();
 

@@ -30,6 +30,7 @@ namespace ADN.Infrastructure.Persistence
 
             modelBuilder.HasDefaultSchema(_config.GetValue<string>("SchemaName"));
             modelBuilder.Entity<Person>();
+            modelBuilder.Entity<Vehicle>();
 
 
             foreach (var entityType in modelBuilder.Model.GetEntityTypes())
