@@ -3,20 +3,17 @@
         <div class="form">
             <div class="login-form">
                 <h3>Ingresar Vehiculo</h3>
-                <input validar type="text" id="idVehiculo" name="idVehiculo" placeholder="Placa" class="form-control" formControlName="id">
-                <input validar type="text" id="descripcionVehiculo" name="descripcion" placeholder="Cilindraje" class="form-control" formControlName="descripcion">
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" formControlName="type" type="number">
                   <option selected>Tipo de vehiculo</option>
-                  <option value="1">Carro</option>
-                  <option value="2">Moto</option>
+                  <option value=0 type="number">Carro</option>
+                  <option value=1 type="number">Moto</option>
                 </select>
+                <input validar type="text" id="plate" name="plate" placeholder="Placa" class="form-control" formControlName="plate">
+                <input validar type="number" id="cc" name="cc" placeholder="Cilindraje" class="form-control" formControlName="cc">
 
-                <input matInput type="datetime-local">
+                <input matInput type="datetime-local" formControlName="dateOfIn">
 
-                <button>login</button>
-                <button [swal]="['Oops!', 'This is not implemented yet :/', 'warning']">
-                  Do it!
-                </button>
+                <button type="button" class="btn btn-success" (click)="crearVehiculo()">Ingresar</button>
             </div>
         </div>
     </div>

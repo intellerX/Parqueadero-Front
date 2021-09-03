@@ -8,32 +8,18 @@
                 <th scope="col">Tipo</th>
                 <th scope="col">Fecha Entrada</th>
                 <th scope="col">Estado</th>
+                <th scope="col">Botones</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let vehiculo of listaVehiculos">
                 <th scope="row">1</th>
-                <td>Mark</td>
-                <td>1500</td>
-                <td>Carro</td>
-                <td>11-11-2020</td>
+                <td>{{vehiculo.plate}}</td>
+                <td>{{vehiculo.cc}}</td>
+                <td>{{dicTipoCarro[vehiculo.type]}}</td>
+                <td>{{vehiculo.dateOfIn | date: 'short'}}</td>
                 <td>Activo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>150</td>
-                <td>Moto</td>
-                <td>11-11-2020</td>
-                <td>Activo</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td>Larry</td>
-                <td>2500</td>
-                <td>Carro</td>
-                <td>11-11-2020</td>
-                <td>Activo</td>
+                <button type="button" class="btn btn-success" (click)="updateVehicle(vehiculo.id)">Retirar</button>
             </tr>
         </tbody>
     </table>

@@ -5,12 +5,14 @@ namespace ADN.Domain.Entities
     public class Vehicle : EntityBase<Guid>
     {
         public string Plate { get; set; } = default!;
-        public string Cc { get; set; } = default!;
-        public string Type { get; set; } = default!;
-        public string State { get; set; } = default!;
+        public int Cc { get; set; } = default!;
+        public VehicleType Type { get; set; } = default!;
+        public VehicleState State { get; set; } = default!;
         public DateTime DateOfIn { get; set; } = default!;
+        public DateTime UpdatedOn { get; set; } = default!;
 
-        public Vehicle(string plate, string cc, string type, string state, DateTime dateOfIn)
+
+        public Vehicle(string plate, int cc, VehicleType type, VehicleState state, DateTime dateOfIn)
         {
             Plate = plate;
             Cc = cc;
@@ -22,5 +24,9 @@ namespace ADN.Domain.Entities
         {
 
         }
+
+
+        public enum VehicleType { Moto , Carro}
+        public enum VehicleState { Activo, Inactivo}
     }
 }

@@ -1,13 +1,14 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using MediatR;
+using static ADN.Domain.Entities.Vehicle;
 
 namespace ADN.Application.Vehicle.Command {
-    public record CreatePersonCommand(
+    public record CreateVehicleCommand(
         [Required, MaxLength(64)] string Plate,
-        [Required, MaxLength(64)] string Cc,
-        [Required, MaxLength(64)] string Type,
-        [Required, MaxLength(64)] string State,
+        [Required] int Cc,
+        [Required] VehicleType Type,
+        [Required] VehicleState State,
         [Required] DateTime DateOfIn
     ) : IRequest;
 

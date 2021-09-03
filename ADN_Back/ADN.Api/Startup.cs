@@ -22,6 +22,7 @@ namespace ADN.Api
 {
     public class Startup
     {
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +33,7 @@ namespace ADN.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddDbContext<PersistenceContext>(opt =>
             {
                 opt.UseSqlServer(Configuration.GetConnectionString("database"), sqlopts =>
@@ -39,6 +41,7 @@ namespace ADN.Api
                     sqlopts.MigrationsHistoryTable("_MigrationHistory", Configuration.GetValue<string>("SchemaName"));
                 });
             });
+
 
             services.AddMediatR(Assembly.Load("ADN.Application"), typeof(Startup).Assembly);
             var applicationAssemblyName = typeof(Startup).Assembly.GetReferencedAssemblies()
@@ -49,6 +52,10 @@ namespace ADN.Api
             services.AddControllers( options => {
                 options.Filters.Add(typeof(AppExceptionFilterAttribute));
             });
+            services.AddCors(options => options.AddDefaultPolicy(
+                    builder => builder.WithOrigins("http://localhost:4200", "https://localhost:4200")
+                .AllowAnyHeader().AllowAnyMethod().AllowCredentials()
+                ));
             services.AddSwaggerDocument();
             services.AddResponseCompression();
             services.AddHealthChecks()
@@ -59,6 +66,7 @@ namespace ADN.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -72,12 +80,14 @@ namespace ADN.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             // app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseCors();
 
-            //app.UseAuthorization();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

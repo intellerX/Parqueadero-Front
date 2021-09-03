@@ -1,18 +1,21 @@
 export class Vehiculo {
     id: string;
-    placa: string;
-    cc: string;
-    tipo: string;
-    estado: string;
-    dateIn: string;
+    Plate: string;
+    Cc: number;
+    Type: number;
+    State: number;
+    DateOfIn: string;
 
 
-    constructor(id: string, placa: string, cc: string, tipo: string, estado: string, dateIn: string) {
-        this.id = id;
-        this.placa = placa;
-        this.cc = cc;
-        this.tipo = tipo;
-        this.estado = estado
-        this.dateIn = dateIn;
+    constructor(Plate: string, Cc: number, Type: number, State: number, DateOfIn: string) {
+        this.Plate = Plate;
+        this.Cc = Cc;
+        this.Type = Type;
+        this.State = State
+        this.DateOfIn = DateOfIn;
     }
+
+
 }
+
+

@@ -27,8 +27,15 @@ namespace ADN.Api.Controllers
         [HttpGet("{id}")]
         public async Task<VehicleDto> GetVehicle(Guid id) => await _Mediator.Send(new VehicleQuery(id));
 
+        [HttpGet]
+        public async Task<IEnumerable<VehicleDto>> GetVehicles() => await _Mediator.Send(new VehiclesQuery());
+
+
         [HttpPost]
         public async Task NewVehicle(CreateVehicleCommand vehicle) => await _Mediator.Send(vehicle);
+
+        [HttpPut]
+        public async Task<VehicleCostDto> UpdateVehicle(UpdateVehicleCommand vehicle) => await _Mediator.Send(vehicle);
 
     }
 }

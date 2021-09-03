@@ -23,7 +23,7 @@ namespace ADN.Application.Vehicle.Command
                 Plate = request.Plate,
                 Cc = request.Cc,
                 Type = request.Type,
-                State = request.State
+                State = request.State,
                 DateOfIn = request.DateOfIn
             });
         }

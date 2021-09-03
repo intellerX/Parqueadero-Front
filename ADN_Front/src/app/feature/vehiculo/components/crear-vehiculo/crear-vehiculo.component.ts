@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { VehiculoService } from '../../shared/service/vehiculo.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Vehiculo } from '@vehiculo/shared/model/vehiculo';
+import Swal from 'sweetalert2'
 
-const LONGITUD_MINIMA_PERMITIDA_TEXTO = 3;
-const LONGITUD_MAXIMA_PERMITIDA_TEXTO = 20;
+const LONGITUD_MINIMA_PERMITIDA_PLACA = 6;
+const LONGITUD_MAXIMA_PERMITIDA_PLACA = 6;
 
 @Component({
   selector: 'app-crear-vehiculo',
@@ -24,10 +26,54 @@ export class CrearVehiculoComponent implements OnInit {
 
   private construirFormularioVehiculo() {
     this.vehiculoForm = new FormGroup({
-      id: new FormControl('', [Validators.required]),
-      descripcion: new FormControl('', [Validators.required, Validators.minLength(LONGITUD_MINIMA_PERMITIDA_TEXTO),
-      Validators.maxLength(LONGITUD_MAXIMA_PERMITIDA_TEXTO)])
+      type: new FormControl('', [Validators.required]),
+      cc: new FormControl('', [Validators.required]),
+      dateOfIn: new FormControl('', [Validators.required]),
+      plate: new FormControl('', [Validators.required, Validators.minLength(LONGITUD_MINIMA_PERMITIDA_PLACA),
+      Validators.maxLength(LONGITUD_MAXIMA_PERMITIDA_PLACA)]),
     });
   }
+
+  crearVehiculo() {
+    this.vehiculoServices.guardar(
+      new Vehiculo(
+        this.vehiculoForm.value.plate,
+        this.vehiculoForm.value.cc,
+        +this.vehiculoForm.value.type,
+        0, this.vehiculoForm.value.dateOfIn
+      )
+    ).subscribe(
+      value => {
+        console.log(value);
+
+        this.successMessage();
+      }, error => {
+        console.log(error.error.message);
+
+        this.errorMessage(error.error.message);
+      }
+    )
+  }
+
+  successMessage() {
+    Swal.fire({
+      icon: 'success',
+      text: 'Vehiculo creado correctamente',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.reload();
+      }
+    })
+  }
+
+  errorMessage(errorMessage: any) {
+    Swal.fire(
+      'Error al cargar los datos',
+      'Error: ' + errorMessage,
+      'error'
+    )
+  }
+
+
 
 }
