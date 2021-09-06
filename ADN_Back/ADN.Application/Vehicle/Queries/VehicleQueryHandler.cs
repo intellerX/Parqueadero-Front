@@ -27,17 +27,8 @@ namespace ADN.Application.Vehicle.Queries
         public async Task<VehicleDto> Handle(VehicleQuery request, CancellationToken cancellationToken)
         {
             _ = request ?? throw new ArgumentNullException("request", "request object needed to handle this task");
-            var vehicle = await _VehicleRepository.GetByIdAsync(request.Id);
+            return _mapper.Map<VehicleDto>(await _VehicleRepository.GetByIdAsync(request.Id));
 
-            return (new VehicleDto
-            {
-                Id = vehicle.Id,
-                Cc = vehicle.Cc,
-                DateOfIn = vehicle.DateOfIn,
-                Plate = vehicle.Plate,
-                State = vehicle.State,
-                Type = vehicle.Type
-            });
         }
 
         public void Dispose()

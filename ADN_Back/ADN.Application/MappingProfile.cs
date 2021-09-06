@@ -6,8 +6,9 @@ namespace ADN.Application
     {
         public MappingProfile()
         {
-            CreateMap<ADN.Domain.Entities.Person, ADN.Application.Person.Queries.PersonDto>();
-            CreateMap<ADN.Application.Person.Queries.PersonDto, ADN.Domain.Entities.Person>();           
+            CreateMap<ADN.Domain.Entities.Vehicle, ADN.Application.Vehicle.Queries.VehicleDto>();
+            CreateMap<ADN.Application.Vehicle.Queries.VehicleDto, ADN.Domain.Entities.Vehicle>();
+
         }
     }
 }

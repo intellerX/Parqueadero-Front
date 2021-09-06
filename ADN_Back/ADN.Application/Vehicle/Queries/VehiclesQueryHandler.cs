@@ -31,7 +31,12 @@ namespace ADN.Application.Vehicle.Queries
             {
                 var vehicles = await _VehicleRepository.GetAsync(vehicle => vehicle.State == 0);
                 return vehicles.Select(y => new VehicleDto {
-                    Id = y.Id, Cc = y.Cc, DateOfIn = y.DateOfIn, Plate = y.Plate, State = y.State, Type = y.Type 
+                    Id = y.Id,
+                    Cc = y.Cc,
+                    DateOfIn = y.DateOfIn,
+                    Plate = y.Plate,
+                    State = y.State,
+                    Type = y.Type 
                 }); 
             }
             catch (Exception x)
