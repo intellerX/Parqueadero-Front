@@ -45,7 +45,7 @@ export class ListarVehiculoComponent implements OnInit {
 
     Swal.fire(
       'El Vehiculo se ha retirado correctamente',
-      'Costo total: ' + cost,
+      'Costo total: $' + cost,
       'success'
 
     ).then((result) => {

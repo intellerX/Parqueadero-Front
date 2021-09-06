@@ -2,7 +2,6 @@
     <table class="table">
         <thead>
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Placa</th>
                 <th scope="col">CC</th>
                 <th scope="col">Tipo</th>
@@ -13,7 +12,6 @@
         </thead>
         <tbody>
             <tr *ngFor="let vehiculo of listaVehiculos">
-                <th scope="row">1</th>
                 <td>{{vehiculo.plate}}</td>
                 <td>{{vehiculo.cc}}</td>
                 <td>{{dicTipoCarro[vehiculo.type]}}</td>

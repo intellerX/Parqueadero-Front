@@ -5,6 +5,7 @@ using ADN.Domain.Exceptions;
 using ADN.Domain.Ports;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using static ADN.Domain.Entities.Vehicle;
 
 namespace ADN.Domain.Services
 {
@@ -14,6 +15,11 @@ namespace ADN.Domain.Services
         private readonly IGenericRepository<Vehicle> _repository;
         private static int MaxCapBike = 10;
         private static int MaxCapCar = 20;
+        private static int CostCarDay = 8000;
+        private static int CostCarHour = 1000;
+        private static int CostBikeDay = 4000;  
+        private static int CostBikeHour = 500;
+        private static int CostBigBike = 2000;
         public VehicleService(IGenericRepository<Vehicle> repository)
         {
             _repository = repository ?? throw new ArgumentNullException("No vehicle repo available");
@@ -21,9 +27,9 @@ namespace ADN.Domain.Services
 
         public async Task<Vehicle> RegisterVehicle(Vehicle vehicle){
 
-            var vehicle_exist = await _repository.GetAsync(v => (v.Plate == vehicle.Plate) && (v.State == 0));
-            if (vehicle_exist.Count() != 0 )
-                throw new VehicleExistException("El Vehiculo ya se encuentra en el parqueadero");
+            await VehicleValidateInAsync(vehicle.Plate);
+
+            await VehicleSpaceAsync(vehicle.Type);
 
             if (IsVehiclePlateRestringed( vehicle.Plate, vehicle.DateOfIn))
             {
@@ -46,10 +52,10 @@ namespace ADN.Domain.Services
         public async Task<int> UpdateStatusVehicle(Vehicle vehicle)
         {
             var vehicle_exist = await _repository.GetByIdAsync(vehicle.Id);
-            vehicle_exist.State = (Vehicle.VehicleState)1;
+            vehicle_exist.State = VehicleState.Inactivo;
             await _repository.UpdateAsync(vehicle_exist);
-            var total_cost = VehicleTotalPriceAsync(vehicle_exist);
-            return await (total_cost);
+            var total_cost = VehicleTotalPrice(vehicle_exist);
+            return (total_cost);
         }
         
         bool IsVehiclePlateRestringed(string plate, DateTime dateOfIn)
@@ -76,39 +82,65 @@ namespace ADN.Domain.Services
             return true;
         }
 
-        async Task<int> VehicleTotalPriceAsync(Vehicle vehicle)
+        int VehicleTotalPrice(Vehicle vehicle)
         {
-            //var vehicle_exist = await _repository.GetAsync(v => (v.Plate == vehicle.Plate) && (v.State == 0));
-            //if (vehicle_exist.Count() == 0)
-            //    throw new VehicleExistException("El Vehiculo no se encuentra en el parqueadero");
-            // Valida si es Moto
-            var hours = (DateTime.Now - vehicle.DateOfIn).TotalHours;
+            var hours = Math.Ceiling((DateTime.Now - vehicle.DateOfIn).TotalHours);
             var totalCost = 0;
 
             // suma los dias
-            while (hours <= 9)
+            while (hours >= 9)
             {
-                if (vehicle.Type == 0)
-                    totalCost += 4000;  
-                else                 
-                    totalCost += 8000;                
-                hours -= 9;
+                if (vehicle.Type == VehicleType.Moto)
+                    totalCost += CostBikeDay;
+                else
+                    totalCost += CostCarDay;
+                hours -= 24;
             }
 
+            if (hours < 0)
+                hours = 0;
+
             // suma las horas y cobra sobrecargo para motos mayores a 500CC
-            if (vehicle.Type == 0)
+            if (vehicle.Type == VehicleType.Moto)
             {
-                totalCost = Convert.ToInt32(Math.Ceiling(hours) * 500);
-                if (Convert.ToInt32(vehicle.Cc) >= 500)
+                totalCost += Convert.ToInt32(hours * CostBikeHour);
+                if (vehicle.Cc >= 500)
                 {
-                    totalCost += 2000;
+                    totalCost += CostBigBike;
                 }
             }
             else
-                totalCost = Convert.ToInt32(Math.Ceiling(hours) * 1000);
+                totalCost += Convert.ToInt32(hours * CostCarHour);
 
             return totalCost;
         }
+
+        public async Task VehicleSpaceAsync(VehicleType type)
+        {
+            if (type == VehicleType.Moto)
+            {
+                var bike_count = await _repository.GetAsync(bike => bike.Type == (VehicleType.Moto));
+                if (bike_count.Count() > MaxCapBike)
+                    throw new VehicleExistException("El parqueadero ya esta en su limite de motos");
+            }
+            else
+            {
+                var car_count = _repository.GetAsync(car => car.Type == (VehicleType.Carro));
+                if (car_count.Result.Count() > MaxCapCar)
+                    throw new VehicleExistException("El parqueadero ya esta en su limite de carros");
+            }
+
+        }
+
+        public async Task VehicleValidateInAsync(string plate)
+        {
+            var vehicle_exist = await _repository.GetAsync(v => (v.Plate == plate) && (v.State == VehicleState.Activo));
+            if (vehicle_exist.Count() != 0)
+                throw new VehicleExistException("El Vehiculo ya se encuentra en el parqueadero");
+
+        }
+
+
 
 
         public void Dispose()

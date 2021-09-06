@@ -26,8 +26,8 @@ export class CrearVehiculoComponent implements OnInit {
 
   private construirFormularioVehiculo() {
     this.vehiculoForm = new FormGroup({
-      type: new FormControl('', [Validators.required]),
-      cc: new FormControl('', [Validators.required]),
+      type: new FormControl('Tipo de vehiculo', [Validators.required]),
+      cc: new FormControl(null),
       dateOfIn: new FormControl('', [Validators.required]),
       plate: new FormControl('', [Validators.required, Validators.minLength(LONGITUD_MINIMA_PERMITIDA_PLACA),
       Validators.maxLength(LONGITUD_MAXIMA_PERMITIDA_PLACA)]),
@@ -35,6 +35,9 @@ export class CrearVehiculoComponent implements OnInit {
   }
 
   crearVehiculo() {
+    if (this.vehiculoForm.value.type == 1 && this.vehiculoForm.value.cc == null) {
+      this.vehiculoForm.value.cc = 0
+    }
     this.vehiculoServices.guardar(
       new Vehiculo(
         this.vehiculoForm.value.plate,
