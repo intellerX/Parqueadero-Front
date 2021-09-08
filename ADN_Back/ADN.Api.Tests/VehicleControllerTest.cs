@@ -11,6 +11,7 @@ using ADN.Domain.Entities;
 using ADN.Domain.Ports;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json.Linq;
 
 namespace ADN.Api.Tests
 {
@@ -36,10 +37,10 @@ namespace ADN.Api.Tests
                 {
                     Id = _vehicleId,
                     Plate = "XZR93F",
-                    Cc = 750,
+                    Cc = 650,
                     Type = 0,
                     State = 0,
-                    DateOfIn = DateTime.Now
+                    DateOfIn = DateTime.Now.AddHours(-10),
                 }).Result;
             }
         }
@@ -137,9 +138,13 @@ namespace ADN.Api.Tests
             var request = new UpdateVehicleCommand(_vehicleId);
             var requestContent = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
             var response = await client.PutAsync("/api/vehicle", requestContent);
+            var test = response.Content.ReadAsStringAsync().Result;
+            var testjson = JObject.Parse(test).SelectToken("cost");
             response.EnsureSuccessStatusCode();
-            Assert.AreEqual(System.Net.HttpStatusCode.OK, response.StatusCode);
+            Assert.AreEqual(testjson, 6000);
+
         }
+
 
     }
 }

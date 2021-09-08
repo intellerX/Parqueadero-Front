@@ -29,15 +29,9 @@ namespace ADN.Application.Vehicle.Queries
             _ = request ?? throw new ArgumentNullException("request", "request object needed to handle this task");
             try
             {
-                var vehicles = await _VehicleRepository.GetAsync(vehicle => vehicle.State == 0);
-                return vehicles.Select(y => new VehicleDto {
-                    Id = y.Id,
-                    Cc = y.Cc,
-                    DateOfIn = y.DateOfIn,
-                    Plate = y.Plate,
-                    State = y.State,
-                    Type = y.Type 
-                }); 
+                var vehicles = _mapper.Map<IEnumerable<VehicleDto>> (await _VehicleRepository.GetAsync(vehicle => vehicle.State == 0));
+                return vehicles;
+
             }
             catch (Exception x)
             {
