@@ -22,7 +22,6 @@ namespace ADN.Api
 {
     public class Startup
     {
-        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -49,7 +48,8 @@ namespace ADN.Api
 
             services.AddAutoMapper(Assembly.Load(applicationAssemblyName.FullName));
             services.AddDomainServices();
-            services.AddControllers( options => {
+            services.AddControllers(options =>
+            {
                 options.Filters.Add(typeof(AppExceptionFilterAttribute));
             });
             services.AddCors(options => options.AddDefaultPolicy(
