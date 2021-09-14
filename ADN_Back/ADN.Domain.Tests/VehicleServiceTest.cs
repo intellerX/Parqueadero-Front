@@ -46,7 +46,7 @@ namespace ADN.Domain.Tests
                 Cc = 160,
                 Type = 0,
                 State = 0,
-                DateOfIn = System.DateTime.Now
+                DateOfIn = new DateTime(2021, 09, 05, 22, 35, 5)
             };
 
             _vehicleRepository.AddAsync(Arg.Any<Vehicle>()).Returns(Task.FromResult(

@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static ADN.Domain.Entities.Vehicle;
 
+
+
 namespace ADN.Domain.Services
 {
     [DomainService]
@@ -38,16 +40,8 @@ namespace ADN.Domain.Services
             return await _repository.AddAsync(vehicle);
         }
 
+              
 
-
-        public async Task<Vehicle> FindVehicle(Guid id) {
-            return await _repository.GetByIdAsync(id);
-        }
-
-        public async Task<IEnumerable<Vehicle>> AllVehicle()
-        {
-            return await _repository.GetAsync();
-        }
 
         public async Task<int> UpdateStatusVehicle(Vehicle vehicle)
         {
@@ -120,13 +114,13 @@ namespace ADN.Domain.Services
             if (type == VehicleType.Moto)
             {
                 var bike_count = await _repository.GetAsync(bike => bike.Type == (VehicleType.Moto));
-                if (bike_count.Count() > MaxCapBike)
+                if (bike_count.Count() >= MaxCapBike)
                     throw new VehicleExistException("El parqueadero ya esta en su limite de motos");
             }
             else
             {
                 var car_count = _repository.GetAsync(car => car.Type == (VehicleType.Carro));
-                if (car_count.Result.Count() > MaxCapCar)
+                if (car_count.Result.Count() >= MaxCapCar)
                     throw new VehicleExistException("El parqueadero ya esta en su limite de carros");
             }
 
